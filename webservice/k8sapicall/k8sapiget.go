@@ -10,7 +10,7 @@ import (
 
 type Data struct {
 	Name      string `json:"name"`
-	Namespace string `json:"namespace"`
+	Namespace string `json:"namespace,omitempty"`
 }
 
 func GetPods() ([]byte, error) {
