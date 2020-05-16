@@ -7,6 +7,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+//DeleteNamespace function removes namesace from cluster
 func DeleteNamespace(namespaceName string) error {
 	clientSet, _ := k8sconnect.GetClientSet()
 

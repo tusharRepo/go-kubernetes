@@ -10,6 +10,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
+//GetClientSet returns kubernetes client pointer
 func GetClientSet() (*kubernetes.Clientset, error) {
 	log.Println("getClientSet: Trying to get in-cluster config")
 	config, err := rest.InClusterConfig()

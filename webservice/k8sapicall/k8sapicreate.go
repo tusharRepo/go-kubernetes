@@ -8,6 +8,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+//CreateNamespace create a namespace in the cluster
 func CreateNamespace(namespaceName string) (*v1.Namespace, error) {
 	clientSet, _ := k8sconnect.GetClientSet()
 

@@ -8,13 +8,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-type Data struct {
+type data struct {
 	Name      string `json:"name"`
 	Namespace string `json:"namespace,omitempty"`
 }
 
+//GetPods returns pod list from all namespaces in json format
 func GetPods() ([]byte, error) {
-	var podData []Data
+	var podData []data
 
 	clientSet, _ := k8sconnect.GetClientSet()
 	pods, err := clientSet.CoreV1().Pods("").List(metav1.ListOptions{})
@@ -22,17 +23,18 @@ func GetPods() ([]byte, error) {
 		log.Fatalln("GetPods: failed to get pods:", err)
 	}
 	for _, pod := range pods.Items {
-		temp := Data{}
+		temp := data{}
 		temp.Name = pod.GetName()
 		temp.Namespace = pod.GetNamespace()
 		podData = append(podData, temp)
 	}
-	podJson, err := json.Marshal(podData)
-	return podJson, err
+	podJSON, err := json.Marshal(podData)
+	return podJSON, err
 }
 
+//GetNamespace return list of namespaces in json format
 func GetNamespace() ([]byte, error) {
-	var namespaceData []Data
+	var namespaceData []data
 
 	clientSet, _ := k8sconnect.GetClientSet()
 	namespace, err := clientSet.CoreV1().Namespaces().List(metav1.ListOptions{})
@@ -40,10 +42,10 @@ func GetNamespace() ([]byte, error) {
 		log.Fatalln("GetNamespace: failed to get namespace:", err)
 	}
 	for _, namespace := range namespace.Items {
-		temp := Data{}
+		temp := data{}
 		temp.Name = namespace.GetName()
 		namespaceData = append(namespaceData, temp)
 	}
-	namespaceJson, err := json.Marshal(namespaceData)
-	return namespaceJson, err
+	namespaceJSON, err := json.Marshal(namespaceData)
+	return namespaceJSON, err
 }
